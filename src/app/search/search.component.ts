@@ -1,38 +1,36 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Entry } from './app.model';
-import { AppService } from './app.service';
+import { Entry } from '../app.model';
+import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
   providers: [AppService]
 })
-export class AppComponent implements OnInit {
+export class SearchComponent {
   loadedEntries: Entry[] = [];
   isFetching = false;
   error = null;
 
-  constructor(private http: HttpClient, private appService: AppService) {}
+  constructor(private appService: AppService) {}
 
-  ngOnInit() {
+  onSearchEntry(postData: Entry) {
     this.isFetching = true;
-    this.appService.fetchEntries().subscribe(
+    this.appService.searchEntry(postData.name).subscribe(
       entries => {
         this.isFetching = false;
         this.loadedEntries = entries;
+        console.log(entries);
       },
       error => {
         this.isFetching = false;
         this.error = error.message;
+        console.log(error);
       }
     );
-  }
-
-  onAddEntry(postData: Entry) {
-    this.appService.addEntry(postData.name, postData.phoneNumber);
   }
 
   onFetchEntries() {
@@ -41,6 +39,7 @@ export class AppComponent implements OnInit {
       entries => {
         this.isFetching = false;
         this.loadedEntries = entries;
+        console.log(entries);
       },
       error => {
         this.isFetching = false;

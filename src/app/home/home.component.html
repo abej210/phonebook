@@ -20,6 +20,7 @@
             class="form-control"
             id="phoneNumber"
             required
+            pattern="^[1-9]+[0-9]*$"
             ngModel
             name="phoneNumber"
           />
@@ -28,37 +29,9 @@
           class="btn btn-primary"
           type="submit"
           [disabled]="!postForm.valid"
-        >Add</button>
+        >Add
+        </button>
       </form>
     </div>
   </div>
-  <hr />
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <button class="btn btn-primary" (click)="onFetchEntries()">List</button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <p *ngIf="loadedEntries.length < 1 && !isFetching">No posts available!</p>
-      <ul class="list-group" *ngIf="loadedEntries.length >= 1 && !isFetching">
-        <li class="list-group-item" *ngFor="let entry of loadedEntries">
-          <h3>{{ entry.name }}</h3>
-          <p>{{ entry.phoneNumber }}</p>
-        </li>
-      </ul>
-      <p *ngIf="isFetching && !error">Loading...</p>
-      <div class="alert alert-danger" *ngIf="error">
-        <h1>An Error Occurred!</h1>
-        <p>{{ error }}</p>
-        <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
-      </div>
-    </div>
-  </div>
 </div>
-
